@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [all, setAll] = useState(null);
+
+  const axiosInstance = axios.create({
+    baseURL: 'http://localhost:5000',
+  });
+
+  const getData = async () => {
+    try {
+      const request = await axiosInstance.get('/all');
+      const response = await request.data;
+      setAll(response);
+  
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      { all ? <div>{ all }</div> : null }
     </div>
-  );
+  )
 }
 
 export default App;
