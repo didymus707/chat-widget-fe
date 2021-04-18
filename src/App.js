@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+// import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router, 
   Switch, 
@@ -15,27 +16,17 @@ const App = () => {
   // const [users, setUsers] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // const axiosInstance = axios.create({
-  //   baseURL: 'http://localhost:5000',
-  // });
-
   const setAuth = boolean => {
     setIsAuthenticated(boolean);
   }
 
-  // const getData = async () => {
-  //   try {
-  //     const req = await axiosInstance.get('/api/get/users');
-  //     const res = await req.data;
-  //     setUsers(res)
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   // useEffect(() => {
-  //   getData();
-  // })
+  //   axios.get('http://localhost:5000/api/users')
+  //     .then(res => {
+  //       const { data } = res;
+  //       setUsers(data);
+  //     });
+  // }, [])
 
   return (
     <>
@@ -63,8 +54,18 @@ const App = () => {
 
       {/* <div className="users">
         <h1>Users</h1>
-        {users}
-        {console.log(users)}
+        <ul>
+          {users.map((user, i) => {
+            return (
+              <li key={i}>
+                <span>{user.aid}</span>
+                <span>{user.name}</span>
+                <span>{user.email}</span>
+              </li>
+              )
+            }
+          )}
+        </ul>
       </div> */}
     </>
   )
