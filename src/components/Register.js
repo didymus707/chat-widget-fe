@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Register = ({ setAuth }) => {
 
@@ -21,7 +22,6 @@ const Register = ({ setAuth }) => {
   const handleSubmit = async e => {
     e.preventDefault();
       const body = { name, email, password };
-      console.log(email);
       const options = {
         headers: { "Content-Type": "application/json" }
       }
@@ -48,7 +48,8 @@ const Register = ({ setAuth }) => {
         />
         <input
           type="email" 
-          name="email" id="email"
+          name="email" 
+          id="email"
           placeholder="email"
           className="form-control my-3"
           value={email}
@@ -62,8 +63,9 @@ const Register = ({ setAuth }) => {
           value={password}
           onChange={e => handleChange(e)}
         />
-        <button className="btn btn-success btn-block">Submit</button>
+        <button className="form-control btn btn-success btn-block">Submit</button>
       </form>
+      <Link to="/login">Login</Link>
     </>
   )
 }
