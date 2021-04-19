@@ -1,6 +1,5 @@
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   BrowserRouter as Router, 
   Switch, 
@@ -13,21 +12,26 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 
 const App = () => {
-  // const [users, setUsers] = useState([]);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = boolean => {
     setIsAuthenticated(boolean);
   }
 
-  // useEffect(() => {
-  //   axios.get('http://localhost:5000/api/users')
-  //     .then(res => {
-  //       const { data } = res;
-  //       setUsers(data);
-  //     });
-  // }, [])
+  const isAuth = async () => {
+    const options = {
+      headers: { "token": localStorage.token }
+    }
+    const res = await axios.get('/auth/is-verified', options);
 
+    res.data ? setIsAuthenticated(true) : setIsAuthenticated(false);
+  }
+
+  useEffect(() => {
+    isAuth();
+  }, [])
+  
   return (
     <>
       <Router>

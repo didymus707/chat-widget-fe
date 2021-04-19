@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 const Login = ({ setAuth }) => {
 
@@ -27,9 +31,15 @@ const Login = ({ setAuth }) => {
     const res = await axios.post('/auth/login', JSON.stringify(body), options);
     const token = res.data.token;
     
-    localStorage.setItem('token', token);
+    if (token) {
+      localStorage.setItem('token', token);
 
-    setAuth(true);
+      setAuth(true);
+      toast.success('Login Successful!');
+    } else {
+      setAuth(false);
+      toast.error(res.data);
+    }
   }
 
   return (
